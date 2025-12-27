@@ -1,204 +1,244 @@
-```html
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>內容詳情頁面 - Content Detail</title>
+    <title>訂單介面 - 物資獲取</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700;900&family=Space+Grotesk:wght@300;400;700&family=Syncopate:wght@400;700&display=swap');
+
+        :root {
+            --brutal-black: #000000;
+            --brutal-white: #ffffff;
+            --brutal-yellow: #facc15;
         }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        body {
+            font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
+            background-color: #f0f0f0;
+            color: var(--brutal-black);
+        }
+
+        .brutal-border {
+            border: 4px solid var(--brutal-black);
+        }
+
+        .brutal-shadow {
+            box-shadow: 8px 8px 0px 0px rgba(0,0,0,1);
+        }
+
+        .brutal-shadow-hover:hover {
+            box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
+            transform: translate(4px, 4px);
+        }
+
+        .brutal-shadow-active:active {
+            box-shadow: 0px 0px 0px 0px rgba(0,0,0,1);
+            transform: translate(8px, 8px);
+        }
+
+        .neo-input {
+            border: 4px solid black;
+            padding: 1rem;
+            width: 100%;
+            outline: none;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .neo-input:focus {
+            background-color: var(--brutal-yellow);
+        }
+
+        .title-font {
+            font-family: 'Syncopate', 'Noto Sans TC', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .color-circle {
+            width: 48px;
+            height: 48px;
+            border: 4px solid black;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .color-circle:hover {
+            transform: scale(1.1);
+        }
+
+        .color-circle.active {
+            outline: 4px solid var(--brutal-yellow);
+            outline-offset: 4px;
+        }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen">
+<body class="p-4 md:p-8 lg:p-12">
 
-    <!-- Page Container -->
-    <div id="p6" class="max-w-md mx-auto relative bg-slate-900 min-h-screen pb-24 shadow-2xl overflow-x-hidden">
+    <!-- 導覽標頭 -->
+    <nav class="flex justify-between items-center mb-12">
+        <button data-goto="p2" class="brutal-border brutal-shadow bg-white px-6 py-2 font-bold hover:bg-black hover:text-white transition-colors title-font text-sm">
+            <i class="fas fa-arrow-left mr-2"></i> ESCAPE / 退出
+        </button>
+        <div class="hidden md:block brutal-border bg-black text-white px-4 py-1 text-xs font-bold uppercase tracking-widest">
+            模組編號：獲取協定 v.06
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
         
-        <!-- Header Navigation (Floating) -->
-        <div class="absolute top-0 left-0 right-0 z-50 flex justify-between items-center p-4">
-            <button data-goto="p5" class="w-10 h-10 flex items-center justify-center rounded-full glass-effect text-white">
-                <i class="fa-solid fa-chevron-left"></i>
-            </button>
-            <div class="flex gap-2">
-                <button class="w-10 h-10 flex items-center justify-center rounded-full glass-effect text-white">
-                    <i class="fa-regular fa-heart"></i>
-                </button>
-                <button class="w-10 h-10 flex items-center justify-center rounded-full glass-effect text-white">
-                    <i class="fa-solid fa-share-nodes"></i>
-                </button>
+        <!-- 左側：產品內容 -->
+        <div class="lg:col-span-5 flex flex-col gap-6">
+            <div class="brutal-border brutal-shadow bg-white overflow-hidden">
+                <img src="https://picsum.photos/seed/p6/800/800" alt="產品視圖" class="w-full h-auto grayscale hover:grayscale-0 transition-all duration-500">
+            </div>
+            
+            <div class="brutal-border bg-black text-white p-6">
+                <h1 class="title-font text-3xl font-bold mb-2 tracking-tighter">PROTO-UNIT 01 / 原型機</h1>
+                <p class="text-sm opacity-80 leading-relaxed tracking-wide">精密工程單體。限量版獲取。抵達後需進行不可退還的生物特徵連結程序。</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="brutal-border bg-white p-4">
+                    <span class="block text-xs font-bold uppercase mb-1">質量 / Weight</span>
+                    <span class="text-2xl font-bold">1.42 KG</span>
+                </div>
+                <div class="brutal-border bg-white p-4">
+                    <span class="block text-xs font-bold uppercase mb-1">批次 / Batch</span>
+                    <span class="text-2xl font-bold">#005-ABC</span>
+                </div>
             </div>
         </div>
 
-        <!-- Hero Section -->
-        <div class="relative h-[400px] w-full overflow-hidden">
-            <img src="https://picsum.photos/seed/p6_hero/800/1000" alt="Detail Cover" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-black/20"></div>
-            
-            <!-- Category Badge -->
-            <div class="absolute bottom-6 left-6 flex flex-col gap-2">
-                <span class="px-3 py-1 bg-indigo-600 text-white text-xs font-bold rounded-full w-fit uppercase tracking-widest">
-                    精選課程
-                </span>
-                <h1 class="text-3xl font-bold text-white drop-shadow-md">數位未來設計大師</h1>
-            </div>
-        </div>
-
-        <!-- Content Body -->
-        <div class="px-6 pt-6 space-y-8">
-            
-            <!-- Metadata Row -->
-            <div class="flex justify-between items-center py-4 border-y border-slate-800">
-                <div class="text-center">
-                    <p class="text-slate-400 text-xs uppercase tracking-tighter">評分</p>
-                    <p class="text-lg font-semibold text-indigo-400">4.9 <span class="text-xs text-slate-500 font-normal">(1.2k)</span></p>
-                </div>
-                <div class="text-center border-x border-slate-800 px-8">
-                    <p class="text-slate-400 text-xs uppercase tracking-tighter">時長</p>
-                    <p class="text-lg font-semibold">12 小時</p>
-                </div>
-                <div class="text-center">
-                    <p class="text-slate-400 text-xs uppercase tracking-tighter">難度</p>
-                    <p class="text-lg font-semibold">進階</p>
-                </div>
-            </div>
-
-            <!-- Description -->
-            <section class="space-y-3">
-                <h3 class="text-xl font-bold">項目描述</h3>
-                <p class="text-slate-400 leading-relaxed">
-                    本課程旨在為設計師提供最前衛的數位工具與思維模式。我們將深入探討未來 UI/UX 的趨勢，包括動態介面設計、3D 視覺整合以及 AI 協作設計流程。無論您是想提升個人技術，或是尋求職業突破，這都是您的最佳選擇。
-                </p>
-                <button class="text-indigo-400 font-medium text-sm hover:underline">顯示更多...</button>
-            </section>
-
-            <!-- Media Gallery -->
-            <section class="space-y-4">
-                <div class="flex justify-between items-end">
-                    <h3 class="text-xl font-bold">預覽畫面</h3>
-                    <span class="text-slate-500 text-xs">8 張照片</span>
-                </div>
-                <div class="flex gap-4 overflow-x-auto hide-scrollbar -mx-6 px-6">
-                    <div class="min-w-[200px] h-32 rounded-2xl overflow-hidden shadow-lg border border-slate-700">
-                        <img src="https://picsum.photos/seed/p6_1/400/300" class="w-full h-full object-cover">
-                    </div>
-                    <div class="min-w-[200px] h-32 rounded-2xl overflow-hidden shadow-lg border border-slate-700">
-                        <img src="https://picsum.photos/seed/p6_2/400/300" class="w-full h-full object-cover">
-                    </div>
-                    <div class="min-w-[200px] h-32 rounded-2xl overflow-hidden shadow-lg border border-slate-700">
-                        <img src="https://picsum.photos/seed/p6_3/400/300" class="w-full h-full object-cover">
-                    </div>
-                </div>
-            </section>
-
-            <!-- Instructor/Host -->
-            <section class="p-4 bg-slate-800/50 rounded-2xl flex items-center gap-4">
-                <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-indigo-500">
-                    <img src="https://picsum.photos/seed/avatar_p6/100/100" class="w-full h-full object-cover">
-                </div>
-                <div class="flex-1">
-                    <h4 class="font-bold">陳志豪 (Alex Chen)</h4>
-                    <p class="text-slate-400 text-sm">前矽谷資深設計主管</p>
-                </div>
-                <button class="text-xs px-4 py-2 border border-slate-600 rounded-full font-semibold hover:bg-slate-700">追蹤</button>
-            </section>
-
-            <!-- Reviews Section -->
-            <section class="space-y-5">
-                <div class="flex justify-between items-center">
-                    <h3 class="text-xl font-bold">學員評價</h3>
-                    <button class="text-indigo-400 text-sm font-semibold">查看全部</button>
-                </div>
+        <!-- 右側：結帳表單 -->
+        <div class="lg:col-span-7">
+            <div class="brutal-border brutal-shadow bg-white p-6 md:p-10">
+                <h2 class="title-font text-2xl font-bold mb-8 border-b-4 border-black pb-4">ACQUISITION FORM / 獲取申請表</h2>
                 
-                <!-- Single Review -->
-                <div class="space-y-4">
-                    <div class="bg-slate-800/30 p-4 rounded-2xl space-y-3">
-                        <div class="flex justify-between">
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-[10px]">
-                                    JD
-                                </div>
-                                <span class="font-medium text-sm">Jane Doe</span>
+                <form class="space-y-8" onsubmit="event.preventDefault();">
+                    
+                    <!-- 顏色選擇部分 -->
+                    <div>
+                        <label class="block text-sm font-bold uppercase mb-4 tracking-widest">選擇變體幾何形狀</label>
+                        <div class="flex gap-6">
+                            <div class="flex flex-col items-center gap-2">
+                                <div onclick="selectColor(this)" class="color-circle active bg-red-600" data-color="曜石紅"></div>
+                                <span class="text-[10px] font-bold">紅色</span>
                             </div>
-                            <div class="flex text-yellow-500 text-[10px]">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
+                            <div class="flex flex-col items-center gap-2">
+                                <div onclick="selectColor(this)" class="color-circle bg-blue-700" data-color="深鈷藍"></div>
+                                <span class="text-[10px] font-bold">藍色</span>
                             </div>
-                        </div>
-                        <p class="text-sm text-slate-400">這是我參加過最棒的進階課程！課程內容非常紮實，特別是 AI 工具的應用部分真的讓我大開眼界。</p>
-                        <span class="text-[10px] text-slate-500">2 天前</span>
-                    </div>
-
-                    <div class="bg-slate-800/30 p-4 rounded-2xl space-y-3">
-                        <div class="flex justify-between">
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-[10px]">
-                                    MK
-                                </div>
-                                <span class="font-medium text-sm">Mark Kevin</span>
-                            </div>
-                            <div class="flex text-yellow-500 text-[10px]">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star text-slate-600"></i>
+                            <div class="flex flex-col items-center gap-2">
+                                <div onclick="selectColor(this)" class="color-circle bg-black" data-color="虛無黑"></div>
+                                <span class="text-[10px] font-bold">黑色</span>
                             </div>
                         </div>
-                        <p class="text-sm text-slate-400">範例非常實用，對於已經有基礎的人來說是非常好的進修素材。如果能有更多互動環節會更好。</p>
-                        <span class="text-[10px] text-slate-500">1 週前</span>
                     </div>
-                </div>
-            </section>
 
-        </div>
+                    <!-- 輸入欄位 -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold uppercase">指定代號 / 姓名</label>
+                            <input type="text" placeholder="受試者姓名" class="neo-input">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold uppercase">通訊鏈接 / 電子郵件</label>
+                            <input type="email" placeholder="IDENTITY@NETWORK.COM" class="neo-input">
+                        </div>
+                    </div>
 
-        <!-- Sticky Bottom Action Bar -->
-        <div class="fixed bottom-0 left-0 right-0 max-w-md mx-auto p-4 bg-slate-900/80 backdrop-blur-xl border-t border-slate-800 z-[60]">
-            <div class="flex items-center gap-4">
-                <div class="flex flex-col">
-                    <span class="text-[10px] text-slate-500 uppercase tracking-widest">目前價格</span>
-                    <span class="text-2xl font-bold text-white">$1,280</span>
-                </div>
-                <button data-goto="p9" class="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-4 rounded-2xl shadow-lg shadow-indigo-900/20 transition-all active:scale-95 flex items-center justify-center gap-2">
-                    <span>立即報名行動</span>
-                    <i class="fa-solid fa-arrow-right text-sm"></i>
-                </button>
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold uppercase">傳送座標 / 地址</label>
+                        <textarea rows="2" placeholder="街道、建築、扇區座標" class="neo-input"></textarea>
+                    </div>
+
+                    <!-- 費用總計 -->
+                    <div class="bg-black text-white p-6 brutal-border">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs">單元售價 / UNIT PRICE</span>
+                            <span class="font-bold">$2,450.00</span>
+                        </div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs">物流配給 / LOGISTICS</span>
+                            <span class="font-bold">$45.00</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-4 border-t border-red-700">
+                            <span class="title-font text-xl">Cost / TOTAL</span>
+                            <span class="title-font text-xl">$2,495.00</span>
+                        </div>
+                    </div>
+
+                    <!-- 主要操作按鈕 -->
+                    <button 
+                        data-goto="p7" 
+                        class="w-full bg-white brutal-border brutal-shadow brutal-shadow-hover brutal-shadow-active py-6 text-2xl font-black title-font flex justify-between items-center px-8 group transition-all"
+                    >
+                        <span>CONFIRM / 確認獲取</span>
+                        <i class="fas fa-chevron-right group-hover:translate-x-2 transition-transform"></i>
+                    </button>
+
+                    <p class="text-[50px] font-bold uppercase text-center opacity-50 tracking-tighter">
+                        點擊即表示您同意該物理單元在您的現實中顯現。
+                    </p>
+
+                </form>
             </div>
         </div>
 
-    </div>
+    </main>
 
-    <!-- Script for handling navigation -->
+    <!-- 頁尾進度條 -->
+    <footer class="mt-20 border-t-4 border-black pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="flex gap-2">
+            <div data-goto="p1" class="w-8 h-2 bg-black cursor-pointer"></div>
+            <div data-goto="p2" class="w-8 h-2 bg-black cursor-pointer"></div>
+            <div data-goto="p3" class="w-8 h-2 bg-black cursor-pointer"></div>
+            <div data-goto="p4" class="w-8 h-2 bg-black cursor-pointer"></div>
+            <div data-goto="p5" class="w-8 h-2 bg-black cursor-pointer"></div>
+            <div data-goto="p6" class="w-8 h-2 bg-yellow-400 cursor-pointer"></div>
+            <div class="w-8 h-2 bg-gray-300"></div>
+        </div>
+        <div class="text-xs font-bold uppercase tracking-widest">
+            訂單狀態：等待授權中 (PENDING AUTHORIZATION)
+        </div>
+    </footer>
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const buttons = document.querySelectorAll('[data-goto]');
-            buttons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const targetId = button.getAttribute('data-goto');
-                    console.log(`Navigating to: ${targetId}`);
-                    // In a real scenario, this would trigger page switching logic.
-                    // For the prototype, we can show a feedback or simulate logic.
-                    const targetPage = document.getElementById(targetId);
-                    if (targetPage) {
-                        // Normally we'd hide others and show this one
-                        // But since this is a single file request, we assume the framework handles visibility
-                    }
-                });
+        // 簡單的顏色選擇邏輯
+        function selectColor(element) {
+            document.querySelectorAll('.color-circle').forEach(circle => {
+                circle.classList.remove('active');
             });
+            element.classList.add('active');
+        }
+
+        // 導覽邏輯
+        document.addEventListener('click', function(e) {
+            const target = e.target.closest('[data-goto]');
+            if (target) {
+                const pageId = target.getAttribute('data-goto');
+                console.log('正在導覽至：', pageId);
+                
+                if(pageId === 'p7') {
+                    // 過渡效果
+                    document.body.style.opacity = '0';
+                    setTimeout(() => {
+                        window.location.href = '#' + pageId; 
+                        alert('訂單處理中... 正在重新導向至確認頁面 (Page ID: ' + pageId + ')');
+                        document.body.style.opacity = '1';
+                    }, 300);
+                } else {
+                    alert('前往頁面 ' + pageId);
+                }
+            }
         });
+
+        // 網格背景
+        document.body.style.backgroundImage = 'radial-gradient(#000 0.5px, transparent 0.5px)';
+        document.body.style.backgroundSize = '24px 24px';
     </script>
 
 <script>
@@ -217,4 +257,3 @@
 </script>
 </body>
 </html>
-```
