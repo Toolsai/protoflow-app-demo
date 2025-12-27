@@ -1,208 +1,224 @@
-```html
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
+<html lang="en" class="dark"><head></head><body class="h-screen w-screen relative flex overflow-hidden">```html
+
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>登入與註冊 - 智慧平台</title>
+    <title>ZENITH-01 | Main Stage</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
         
         body {
-            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            font-family: 'Inter', sans-serif;
+            background-color: #050505;
+            color: #e5e5e5;
+            overflow: hidden;
         }
 
-        .glass-morphism {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .bg-huge-text {
+            font-size: 25vw;
+            line-height: 0.8;
+            font-weight: 900;
+            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            user-select: none;
+            pointer-events: none;
+            white-space: nowrap;
         }
 
-        .animated-bg {
-            background: linear-gradient(-45deg, #0f172a, #1e1b4b, #312e81, #1e1b4b);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        .nav-item:hover .nav-label {
+            opacity: 1;
+            transform: translateX(10px);
         }
 
-        .tab-active {
-            border-bottom: 2px solid #6366f1;
-            color: #818cf8;
+        .floating-model-placeholder {
+            animation: float 6s ease-in-out infinite;
         }
 
-        .input-focus:focus {
-            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.4);
-            border-color: #6366f1;
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+
+        .scanline {
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            position: absolute;
+            top: 0;
+            animation: scan 4s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0%; }
+            100% { top: 100%; }
         }
     </style>
-</head>
-<body class="animated-bg min-h-screen flex items-center justify-center p-4 text-slate-100 overflow-hidden">
 
-    <!-- Background Decoration -->
-    <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-600/20 rounded-full blur-[120px]"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-600/20 rounded-full blur-[120px]"></div>
+
+
+    <!-- Background Massive Typography -->
+    <div class="absolute inset-0 flex items-center justify-center z-0 overflow-hidden">
+        <div class="bg-huge-text transform -rotate-12">ZENITH-01</div>
     </div>
 
-    <div class="w-full max-w-md relative z-10">
-        <!-- Back Button -->
-        <button data-goto="p1" class="mb-6 flex items-center text-slate-400 hover:text-white transition-colors group">
-            <i class="fas fa-arrow-left mr-2 transition-transform group-hover:-translate-x-1"></i>
-            返回歡迎頁
+    <!-- Vertical Floating Navigation -->
+    <nav class="fixed left-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-6">
+        <button data-goto="p1" class="group relative flex items-center p-4 glass-panel rounded-full transition-all hover:bg-white/10">
+            <i class="fa-solid fa-house text-zinc-400 group-hover:text-white"></i>
+            <span class="nav-label absolute left-12 px-3 py-1 bg-white text-black text-xs font-bold rounded opacity-0 transition-all pointer-events-none whitespace-nowrap uppercase tracking-widest">Manifest</span>
         </button>
+        <button data-goto="p2" class="group relative flex items-center p-4 bg-white rounded-full transition-all">
+            <i class="fa-solid fa-atom text-black"></i>
+            <span class="nav-label absolute left-12 px-3 py-1 bg-white text-black text-xs font-bold rounded opacity-0 transition-all pointer-events-none whitespace-nowrap uppercase tracking-widest">The Core</span>
+        </button>
+        <button data-goto="p3" class="group relative flex items-center p-4 glass-panel rounded-full transition-all hover:bg-white/10">
+            <i class="fa-solid fa-compass-drafting text-zinc-400 group-hover:text-white"></i>
+            <span class="nav-label absolute left-12 px-3 py-1 bg-white text-black text-xs font-bold rounded opacity-0 transition-all pointer-events-none whitespace-nowrap uppercase tracking-widest">Design</span>
+        </button>
+        <button data-goto="p4" class="group relative flex items-center p-4 glass-panel rounded-full transition-all hover:bg-white/10">
+            <i class="fa-solid fa-microchip text-zinc-400 group-hover:text-white"></i>
+            <span class="nav-label absolute left-12 px-3 py-1 bg-white text-black text-xs font-bold rounded opacity-0 transition-all pointer-events-none whitespace-nowrap uppercase tracking-widest">Specs</span>
+        </button>
+        <button data-goto="p5" class="group relative flex items-center p-4 glass-panel rounded-full transition-all hover:bg-white/10">
+            <i class="fa-solid fa- images text-zinc-400 group-hover:text-white"></i>
+            <span class="nav-label absolute left-12 px-3 py-1 bg-white text-black text-xs font-bold rounded opacity-0 transition-all pointer-events-none whitespace-nowrap uppercase tracking-widest">Gallery</span>
+        </button>
+        <div class="h-12 w-[1px] bg-zinc-800 mx-auto"></div>
+        <button data-goto="p6" class="group relative flex items-center p-4 glass-panel rounded-full border border-zinc-700/50 hover:border-zinc-500 transition-all">
+            <i class="fa-solid fa-cart-shopping text-zinc-400 group-hover:text-white"></i>
+            <span class="nav-label absolute left-12 px-3 py-1 bg-white text-black text-xs font-bold rounded opacity-0 transition-all pointer-events-none whitespace-nowrap uppercase tracking-widest">Acquire</span>
+        </button>
+    </nav>
 
-        <!-- Main Card -->
-        <div class="glass-morphism rounded-3xl p-8 shadow-2xl">
-            <!-- Logo Section -->
-            <div class="text-center mb-8">
-                <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-2xl shadow-lg mb-4">
-                    <i class="fas fa-bolt text-2xl text-white"></i>
+    <!-- Main Content Area -->
+    <main class="relative flex-1 flex flex-col z-10">
+        
+        <!-- Header Info -->
+        <header class="p-10 flex justify-between items-start">
+            <div>
+                <h2 class="text-zinc-500 text-xs tracking-[0.5em] uppercase mb-2">Primary Interface</h2>
+                <h1 class="text-4xl font-bold tracking-tighter">ZENITH-01 <span class="text-sm font-light text-zinc-500 align-top ml-2">[ v1.0.4 ]</span></h1>
+            </div>
+            <div class="text-right hidden md:block">
+                <div class="text-xs text-zinc-500 uppercase tracking-widest mb-1">Status</div>
+                <div class="flex items-center gap-2 justify-end">
+                    <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                    <span class="text-xs font-mono">SYSTEM_OPTIMAL_IDLE</span>
                 </div>
-                <h1 class="text-2xl font-bold tracking-tight">歡迎回來</h1>
-                <p class="text-slate-400 mt-2 text-sm">請輸入您的帳號資訊以繼續</p>
+            </div>
+        </header>
+
+        <!-- Product Showcase (3D Placeholder) -->
+        <div class="flex-1 flex items-center justify-center relative px-20">
+            <!-- Central Display -->
+            <div class="relative w-full max-w-4xl aspect-square flex items-center justify-center group cursor-crosshair">
+                <!-- UI Framing elements -->
+                <div class="absolute top-0 left-0 w-20 h-20 border-t border-l border-zinc-700"></div>
+                <div class="absolute top-0 right-0 w-20 h-20 border-t border-r border-zinc-700"></div>
+                <div class="absolute bottom-0 left-0 w-20 h-20 border-b border-l border-zinc-700"></div>
+                <div class="absolute bottom-0 right-0 w-20 h-20 border-b border-r border-zinc-700"></div>
+                
+                <!-- The "3D Model" -->
+                <div class="floating-model-placeholder relative z-20 group-hover:scale-105 transition-transform duration-700">
+                    <img src="https://picsum.photos/seed/p2/800/800" alt="ZENITH-01 Model" class="rounded-lg shadow-[0_0_100px_rgba(255,255,255,0.05)] grayscale hover:grayscale-0 transition-all duration-1000 border border-white/10">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
+                    <div class="scanline"></div>
+                </div>
+
+                <!-- Circular HUD Decor -->
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-[120%] h-[120%] border border-white/[0.02] rounded-full animate-[spin_60s_linear_infinite]"></div>
+                    <div class="w-[90%] h-[90%] border border-white/[0.03] border-dashed rounded-full animate-[spin_40s_linear_infinite_reverse]"></div>
+                </div>
             </div>
 
-            <!-- Tabs -->
-            <div class="flex border-b border-slate-700 mb-8">
-                <button id="tab-login" class="flex-1 py-3 text-sm font-medium transition-all tab-active" onclick="switchTab('login')">
-                    登入帳號
-                </button>
-                <button id="tab-register" class="flex-1 py-3 text-sm font-medium transition-all text-slate-400" onclick="switchTab('register')">
-                    註冊新用戶
-                </button>
-            </div>
-
-            <!-- Login Form -->
-            <div id="form-login" class="space-y-5">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">電子郵件 / 帳號</label>
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500">
-                            <i class="far fa-envelope"></i>
-                        </span>
-                        <input type="text" placeholder="example@mail.com" class="w-full bg-slate-800/50 border border-slate-700 rounded-xl py-3 pl-10 pr-4 text-sm focus:outline-none input-focus transition-all">
-                    </div>
+            <!-- Side Overlay Labels -->
+            <div class="absolute right-20 top-1/2 -translate-y-1/2 space-y-12 hidden lg:block">
+                <div class="border-l border-white/20 pl-4">
+                    <p class="text-[10px] uppercase text-zinc-500 tracking-widest">Active Modules</p>
+                    <h3 class="text-lg font-bold">Neural Core</h3>
+                    <p class="text-xs text-zinc-400 mt-2 max-w-[200px]">Advanced synaptic processing unit for zero-latency operations.</p>
                 </div>
-
-                <div>
-                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">密碼</label>
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500">
-                            <i class="fas fa-lock"></i>
-                        </span>
-                        <input type="password" placeholder="••••••••" class="w-full bg-slate-800/50 border border-slate-700 rounded-xl py-3 pl-10 pr-10 text-sm focus:outline-none input-focus transition-all">
-                        <button class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-500 hover:text-slate-300">
-                            <i class="far fa-eye-slash"></i>
-                        </button>
-                    </div>
+                <div class="border-l border-white/20 pl-4">
+                    <p class="text-[10px] uppercase text-zinc-500 tracking-widest">Material</p>
+                    <h3 class="text-lg font-bold">Vantablack Ti</h3>
+                    <p class="text-xs text-zinc-400 mt-2 max-w-[200px]">Grade-5 Titanium with custom light-absorbing finish.</p>
                 </div>
-
-                <div class="flex items-center justify-between text-xs">
-                    <label class="flex items-center cursor-pointer group">
-                        <input type="checkbox" class="form-checkbox h-4 w-4 text-indigo-500 bg-slate-800 border-slate-700 rounded focus:ring-offset-0 focus:ring-0">
-                        <span class="ml-2 text-slate-400 group-hover:text-slate-300">記住我</span>
-                    </label>
-                    <button data-goto="p9" class="text-indigo-400 hover:text-indigo-300 font-medium">忘記密碼？</button>
+                <div class="border-l border-white/20 pl-4">
+                    <p class="text-[10px] uppercase text-zinc-500 tracking-widest">Ergonomics</p>
+                    <h3 class="text-lg font-bold">Form X</h3>
+                    <p class="text-xs text-zinc-400 mt-2 max-w-[200px]">Designed to disappear into the palm of your hand.</p>
                 </div>
-
-                <button data-goto="p4" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-indigo-500/20 transition-all active:scale-[0.98]">
-                    立即登入
-                </button>
-            </div>
-
-            <!-- Register Form (Hidden by default) -->
-            <div id="form-register" class="space-y-5 hidden">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">使用者名稱</label>
-                    <input type="text" placeholder="輸入您的名稱" class="w-full bg-slate-800/50 border border-slate-700 rounded-xl py-3 px-4 text-sm focus:outline-none input-focus transition-all">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">電子郵件</label>
-                    <input type="email" placeholder="example@mail.com" class="w-full bg-slate-800/50 border border-slate-700 rounded-xl py-3 px-4 text-sm focus:outline-none input-focus transition-all">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">設定密碼</label>
-                    <input type="password" placeholder="至少 8 個字元" class="w-full bg-slate-800/50 border border-slate-700 rounded-xl py-3 px-4 text-sm focus:outline-none input-focus transition-all">
-                </div>
-                <button data-goto="p3" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-purple-500/20 transition-all active:scale-[0.98]">
-                    建立帳號
-                </button>
-            </div>
-
-            <!-- Social Login Divider -->
-            <div class="relative my-8">
-                <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-700"></div></div>
-                <div class="relative flex justify-center text-xs uppercase"><span class="bg-transparent px-4 text-slate-500 backdrop-blur-md">或其他方式登入</span></div>
-            </div>
-
-            <!-- Social Icons -->
-            <div class="grid grid-cols-3 gap-4">
-                <button class="flex items-center justify-center py-3 border border-slate-700 rounded-xl hover:bg-slate-800 transition-colors">
-                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="Google">
-                </button>
-                <button class="flex items-center justify-center py-3 border border-slate-700 rounded-xl hover:bg-slate-800 transition-colors">
-                    <i class="fab fa-apple text-xl"></i>
-                </button>
-                <button class="flex items-center justify-center py-3 border border-slate-700 rounded-xl hover:bg-slate-800 transition-colors">
-                    <i class="fab fa-facebook text-xl text-blue-500"></i>
-                </button>
             </div>
         </div>
 
-        <!-- Footer Help -->
-        <p class="mt-8 text-center text-slate-500 text-sm">
-            登入即代表您同意本平台的 <span class="text-slate-300 hover:underline cursor-pointer">服務條款</span> 與 <span class="text-slate-300 hover:underline cursor-pointer">隱私權政策</span>
-        </p>
-    </div>
+        <!-- Footer / Interaction Bar -->
+        <footer class="p-10 flex flex-col md:flex-row justify-between items-end gap-6">
+            <div class="flex gap-4">
+                <button class="px-8 py-4 bg-zinc-900 border border-zinc-800 text-xs font-bold uppercase tracking-widest hover:bg-zinc-800 transition-colors ring-2 ring-blue-500 ring-offset-2" id="action-6-0535" data-goto="p7">
+                    View Design Details
+                </button>
+                <button data-goto="p6" class="px-8 py-4 bg-white text-black text-xs font-bold uppercase tracking-widest hover:bg-zinc-200 transition-colors">
+                    Reserve Now
+                </button>
+            </div>
+            
+            <div class="flex items-center gap-10 font-mono text-[10px] text-zinc-500">
+                <div class="flex flex-col">
+                    <span>DIMENSIONS:</span>
+                    <span class="text-zinc-300">142 x 70.6 x 7.85 mm</span>
+                </div>
+                <div class="flex flex-col">
+                    <span>WEIGHT:</span>
+                    <span class="text-zinc-300">187 GRAMS</span>
+                </div>
+                <div class="flex flex-col">
+                    <span>LATENCY:</span>
+                    <span class="text-zinc-300">0.02ms</span>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Ambient UI Overlays -->
+    <div class="fixed top-1/2 left-0 w-full h-[1px] bg-white/[0.02] pointer-events-none"></div>
+    <div class="fixed top-0 left-1/2 w-[1px] h-full bg-white/[0.02] pointer-events-none"></div>
+
+    <!-- Page Transition Shadow -->
+    <div class="fixed inset-0 pointer-events-none z-[100] shadow-[inset_0_0_150px_rgba(0,0,0,0.8)]"></div>
 
     <script>
-        function switchTab(type) {
-            const loginTab = document.getElementById('tab-login');
-            const registerTab = document.getElementById('tab-register');
-            const loginForm = document.getElementById('form-login');
-            const registerForm = document.getElementById('form-register');
-
-            if (type === 'login') {
-                loginTab.classList.add('tab-active', 'text-indigo-400');
-                loginTab.classList.remove('text-slate-400');
-                registerTab.classList.remove('tab-active', 'text-indigo-400');
-                registerTab.classList.add('text-slate-400');
-                loginForm.classList.remove('hidden');
-                registerForm.classList.add('hidden');
-            } else {
-                registerTab.classList.add('tab-active', 'text-indigo-400');
-                registerTab.classList.remove('text-slate-400');
-                loginTab.classList.remove('tab-active', 'text-indigo-400');
-                loginTab.classList.add('text-slate-400');
-                registerForm.classList.remove('hidden');
-                loginForm.classList.add('hidden');
-            }
-        }
-
-        // Prototype navigation simulator
-        document.querySelectorAll('[data-goto]').forEach(element => {
-            element.addEventListener('click', () => {
-                const target = element.getAttribute('data-goto');
-                console.log(`Navigating to page: ${target}`);
-                // In a real prototype engine, this would trigger page visibility changes
-                // For this standalone HTML, we'll just flash the screen as a visual feedback
-                document.body.style.opacity = '0';
-                setTimeout(() => {
-                    alert(`前往頁面: ${target}\n(此為原型預覽，跳轉功能待整合)`);
-                    document.body.style.opacity = '1';
-                }, 300);
+        // Simple hover audio effects or navigation logic could be added here
+        document.querySelectorAll('[data-goto]').forEach(el => {
+            el.addEventListener('click', () => {
+                const target = el.getAttribute('data-goto');
+                console.log(`Navigating to ${target}...`);
+                // In a real prototype, this would trigger the page change function.
             });
+        });
+
+        // Add a subtle parallax to the background text
+        window.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+            const bgText = document.querySelector('.bg-huge-text');
+            bgText.style.transform = `translate(${x}px, ${y}px) rotate(-12deg)`;
         });
     </script>
 
+
+```
 <script>
   // Pro Prototype - Static Navigation Shim
   document.addEventListener('DOMContentLoaded', () => {
@@ -217,7 +233,4 @@
     });
   });
 </script>
-</body>
-</html>
-
-```
+</body></html>
