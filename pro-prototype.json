@@ -1,140 +1,116 @@
 {
   "version": 1,
-  "topic": "Demo。 繁體中文介面",
-  "createdAt": "2025-12-24T06:36:51.244Z",
+  "topic": "这是根据您的要求，为 **\"BauhausTech\"** 更新后的中文版 ProtoFlow 开发规划书（PRD）。\n\n# 项目名称：BauhausTech - 极简主义交互展厅\n\n## 项目概述\n这是一个受包豪斯（Bauhaus）运动启发的极简电子产品展示网站。设计核心在于“形式追随功能”，利用几何图形、三原色和严格的网格布局，配合模拟的 3D 视角，打造高冷且具工业感的数字化产品体验。\n\n## 设计系统\n- **色彩搭配 (Tailwind Classes):**\n  - `bg-[#F2F2F2]`（米白色画布 - 底色）\n  - `bg-[#E63946]`（包豪斯红 - 几何装饰与点缀）\n  - `bg-[#1D3557]`（深空蓝 - 主要按钮与交互）\n  - `bg-[#FFD100]`（活力黄 - 高亮信息）\n  - `text-[#1D1D1D]`（包豪斯黑 - 核心文字）\n- **字体风格:**\n  - 标题：`font-bold uppercase tracking-tighter`（加粗、全大写、紧凑字间距，彰显工业感）\n  - 正文：`font-light leading-relaxed`（细体、松散行间距，保持呼吸感）\n\n## 页面拓扑结构 (Page Topology)\n\n### p1: 欢迎入口 (The Manifest)\n- **标题:** 艺术与技术的统一\n- **关键 UI 组件:** 大型几何图形 Logo（圆形/正方形/三角形组合动画）、居中的“开启体验”大按钮。\n- **导航逻辑:** 点击“开启体验” -> `data-goto=\"p2\"`\n\n### p2: 核心展台 (The Core)\n- **标题:** ZENITH-01 核心视觉\n- **关键 UI 组件:** \n  - 全屏 `canvas` 区域（预留给 Three.js 3D 模型占位）。\n  - 左侧浮动垂直导航菜单。\n  - 巨大的半透明标题 \"ZENITH-01\" 压在背景层。\n- **导航逻辑:** \n  - “探索设计” -> `data-goto=\"p3\"`\n  - “技术规格” -> `data-goto=\"p4\"`\n\n### p3: 产品细节 - 设计 (Form & Material)\n- **标题:** 形式与材质\n- **关键 UI 组件:** 左右对分割网格。左侧：产品局部特写大图；右侧：极简文字块，描述铝合金机身与玻璃工艺。\n- **导航逻辑:** \n  - “下一步：参数” -> `data-goto=\"p4\"`\n  - “返回主页” -> `data-goto=\"p2\"`\n\n### p4: 产品细节 - 规格 (Precision Engineering)\n- **标题:** 精密工程\n- **关键 UI 组件:** 3x3 严格网格布局。每个方格包含一个图标和一项核心参数（如 \"5nm 芯片\", \"OLED 屏幕\"）。\n- **导航逻辑:** \n  - “查看图赏” -> `data-goto=\"p5\"`\n  - “立即预订” -> `data-goto=\"p6\"`\n\n### p5: 交互式图赏 (Perspectives)\n- **标题:** 多维视角\n- **关键 UI 组件:** 水平滚动容器，展示 4 张高对比度（黑白风格）的产品渲染图。\n- **导航逻辑:** \n  - “前往预订” -> `data-goto=\"p6\"`\n  - “返回主页” -> `data-goto=\"p2\"`\n\n### p6: 预订界面 (Acquisition)\n- **标题:** 获取\n- **关键 UI 组件:** 粗黑边框的极简表单。颜色选择器（红/蓝/黑三个色块圆形）。重感风格的“确认购买”按钮。\n- **导航逻辑:** \n  - “确认购买” -> `data-goto=\"p7\"`\n\n### p7: 完成支付 (Complete)\n- **标题:** 订单已确认\n- **关键 UI 组件:** 一个巨大的几何图形“感谢”插画。动态圆形逐渐放大填充屏幕。\n- **导航逻辑:** \n  - “回到起点” -> `data-goto=\"p1\"`",
+  "createdAt": "2025-12-27T08:52:03.804Z",
   "pages": [
     {
       "id": "p1",
-      "title": "啟動歡迎頁",
-      "description": "展示品牌標誌與引人入勝的背景圖，提供「開始使用」按鈕。",
+      "title": "Welcome - The Manifest",
+      "description": "A minimalist splash screen featuring a large geometric logo composed of a moving circle, square, and triangle in primary colors. A centered high-contrast 'Enter' button sits on a米白色 (#F2F2F2) background.",
       "status": "completed",
       "suggestedNavigation": [
+        "p5277",
         "p2"
       ],
       "position": {
-        "x": -200.1694937859825,
-        "y": 428.898305302377
+        "x": -114.25178186977719,
+        "y": 390.855106871412
       }
     },
     {
       "id": "p2",
-      "title": "登入與註冊頁面",
-      "description": "包含帳號密碼輸入框、忘記密碼連結，以及社群媒體快速登入選項。",
+      "title": "Main Stage - The Core",
+      "description": "The central product hub showcasing the 'ZENITH-01'. It features a full-screen canvas for a 3D model placeholder, a vertical floating navigation menu on the left, and massive semi-transparent background typography.",
       "status": "completed",
       "suggestedNavigation": [
         "p1",
-        "p9",
+        "p2",
+        "p3",
         "p4",
-        "p3"
+        "p5",
+        "p6",
+        "p7"
       ],
       "position": {
-        "x": 0.927824661117783,
-        "y": -101.80413150416172
+        "x": 540.6650828956837,
+        "y": 397.387173391832
       }
     },
     {
       "id": "p3",
-      "title": "新手功能導覽",
-      "description": "採用分頁滑動設計，介紹應用程式的三大核心功能與價值。",
+      "title": "Design Details - Form & Material",
+      "description": "A split-grid layout. The left side displays high-resolution product close-ups, while the right side contains minimalist text blocks describing the aluminum body and glass craftsmanship using Bauhaus-inspired typography.",
       "status": "completed",
       "suggestedNavigation": [
-        "p4"
-      ],
-      "position": {
-        "x": 2099.0206318969517,
-        "y": 1240.9793851856152
-      }
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5",
+        "p6"
+      ]
     },
     {
       "id": "p4",
-      "title": "應用程式主首頁",
-      "description": "展示當前摘要資訊、動態消息流以及頂部搜尋欄與底部導覽列。",
+      "title": "Tech Specs - Precision Engineering",
+      "description": "A strict 3x3 grid layout. Each cell contains a minimalist icon and technical specifications like '5nm Chip' or 'OLED Display', emphasizing industrial precision and functional clarity.",
       "status": "completed",
       "suggestedNavigation": [
-        "p7",
-        "p8",
         "p5",
-        "p6",
-        "p9"
-      ],
-      "position": {
-        "x": -115.15466022027837,
-        "y": 978.350524445474
-      }
+        "p6"
+      ]
     },
     {
       "id": "p5",
-      "title": "探索與搜尋頁面",
-      "description": "提供分類標籤與熱門搜尋關鍵字，幫助使用者快速尋找感興趣的內容。",
+      "title": "Interactive Gallery - Perspectives",
+      "description": "A horizontal scrolling container displaying 4 high-contrast, black-and-white product rendering perspectives. This page uses a film-strip style layout to showcase the product's silhouette.",
       "status": "completed",
       "suggestedNavigation": [
-        "p4",
         "p6",
-        "p5",
-        "p7",
-        "p8"
-      ],
-      "position": {
-        "x": 1892.2164961221501,
-        "y": -311.08248061075386
-      }
+        "p2"
+      ]
     },
     {
       "id": "p6",
-      "title": "內容詳情頁面",
-      "description": "詳細顯示選定項目的描述、圖片、評論以及「立即行動」按鈕。",
+      "title": "Order Interface - Acquisition",
+      "description": "A brutalist checkout form with thick black borders. Includes geometric color pickers (Red, Blue, Black circles) and a heavy-weight primary button for order confirmation.",
       "status": "completed",
       "suggestedNavigation": [
+        "p2",
+        "p7",
+        "p1",
+        "p3",
+        "p4",
         "p5",
-        "p9"
-      ],
-      "position": {
-        "x": 2890.7142714162683,
-        "y": 1067.8571241597351
-      }
+        "p6"
+      ]
     },
     {
       "id": "p7",
-      "title": "個人帳戶中心",
-      "description": "展示用戶頭像、等級、收藏清單以及編輯個人資料的入口。",
+      "title": "Confirmation - Complete",
+      "description": "A success state featuring a large abstract 'Thank You' illustration. An animated circle expands from the center to fill the screen, signifying the completion of the acquisition.",
       "status": "completed",
       "suggestedNavigation": [
-        "p4",
-        "p8",
-        "p6",
-        "p5",
-        "p9"
-      ],
-      "position": {
-        "x": 2697.2023561141573,
-        "y": -202.38093551662416
-      }
-    },
-    {
-      "id": "p8",
-      "title": "系統與偏好設定",
-      "description": "包含通知管理、隱私權政策、深色模式切換以及登出選項。",
-      "status": "completed",
-      "suggestedNavigation": [
-        "p7",
+        "p1",
         "p2"
-      ],
-      "position": {
-        "x": 2399.6907308071486,
-        "y": 1192.783508148491
-      }
+      ]
     },
     {
-      "id": "p9",
-      "title": "操作成功確認頁",
-      "description": "顯示醒目的成功圖示與訊息，並提供返回首頁或進行下一個操作的按鈕。",
+      "id": "p5277",
+      "title": "UI Setting",
+      "description": "UI Setting Page",
       "status": "completed",
       "suggestedNavigation": [
+        "p1",
+        "p2",
         "p4",
-        "p6",
-        "p5",
-        "p8"
-      ]
+        "p3",
+        "p5277"
+      ],
+      "position": {
+        "x": 233.6579564359426,
+        "y": 952.1377676882126
+      }
     }
   ]
 }
