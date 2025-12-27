@@ -1,18 +1,26 @@
 ```html
 <!DOCTYPE html>
-<html lang="zh-TW" class="dark">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>探索與搜尋頁面 - 探索新奇內容</title>
+    <title>Interactive Gallery - Perspectives</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@300;500;700&display=swap');
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #0f172a;
+            font-family: 'Inter', sans-serif;
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
         }
+
+        .font-heading {
+            font-family: 'Space+Grotesk', sans-serif;
+        }
+
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -20,223 +28,259 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
-        .category-gradient {
-            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+
+        .film-grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .perspective-card {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .perspective-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .frame-number {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+
+        .scanline {
+            width: 100%;
+            height: 100px;
+            z-index: 10;
+            background: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 100%);
+            opacity: 0.1;
+            position: absolute;
+            bottom: 100%;
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { bottom: 100%; }
+            100% { bottom: -100px; }
         }
     </style>
 </head>
-<body class="text-slate-200">
+<body class="bg-black text-white antialiased">
+    <div class="film-grain"></div>
 
-    <!-- Sticky Header & Search Bar -->
-    <div class="sticky top-0 z-30 bg-slate-900/80 backdrop-blur-md px-4 pt-6 pb-4">
-        <div class="flex items-center gap-3 mb-4">
-            <button data-goto="p4" class="p-2 hover:bg-slate-800 rounded-full transition-colors">
-                <i class="fa-solid fa-chevron-left text-xl"></i>
+    <!-- Navigation Header -->
+    <header class="fixed top-0 left-0 w-full z-40 p-6 flex justify-between items-center mix-blend-difference">
+        <div class="flex items-center gap-4">
+            <button data-goto="p1" class="text-xl font-heading font-bold tracking-tighter uppercase">Manifest</button>
+            <div class="h-[1px] w-12 bg-white/30 hidden md:block"></div>
+            <span class="text-xs tracking-widest text-white/50 uppercase hidden md:block">Gallery / Perspectives</span>
+        </div>
+        <div class="flex gap-8 items-center">
+            <button data-goto="p4" class="text-xs tracking-widest hover:text-white/60 transition-colors uppercase">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Technical
             </button>
-            <div class="relative flex-1">
-                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                <input type="text" placeholder="探索話題、作者或關鍵字..." class="w-full bg-slate-800 border-none rounded-2xl py-3 pl-12 pr-4 text-sm focus:ring-2 focus:ring-emerald-500 outline-none transition-all">
-            </div>
+            <button data-goto="p6" class="bg-white text-black px-6 py-2 text-xs font-bold tracking-widest uppercase hover:bg-zinc-200 transition-colors">
+                Acquire
+            </button>
         </div>
-        
-        <!-- Trending Tags Chips -->
-        <div class="flex overflow-x-auto hide-scrollbar gap-2 pb-1">
-            <span class="whitespace-nowrap bg-emerald-500 text-white text-xs font-semibold px-4 py-1.5 rounded-full cursor-pointer">熱門搜尋</span>
-            <span class="whitespace-nowrap bg-slate-800 hover:bg-slate-700 text-xs px-4 py-1.5 rounded-full cursor-pointer transition-colors"># 人工智慧</span>
-            <span class="whitespace-nowrap bg-slate-800 hover:bg-slate-700 text-xs px-4 py-1.5 rounded-full cursor-pointer transition-colors"># 永續生活</span>
-            <span class="whitespace-nowrap bg-slate-800 hover:bg-slate-700 text-xs px-4 py-1.5 rounded-full cursor-pointer transition-colors"># 數位游牧</span>
-            <span class="whitespace-nowrap bg-slate-800 hover:bg-slate-700 text-xs px-4 py-1.5 rounded-full cursor-pointer transition-colors"># UI設計趨勢</span>
-            <span class="whitespace-nowrap bg-slate-800 hover:bg-slate-700 text-xs px-4 py-1.5 rounded-full cursor-pointer transition-colors"># 區塊鏈應用</span>
-        </div>
-    </div>
+    </header>
 
     <!-- Main Content -->
-    <main class="px-4 pb-24">
+    <main class="relative h-screen flex flex-col justify-center overflow-hidden">
         
-        <!-- Categories Section -->
-        <section class="mt-4">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-lg font-bold">熱門分類</h2>
-                <button class="text-emerald-500 text-sm font-medium">查看全部</button>
-            </div>
-            <div class="grid grid-cols-2 gap-3">
-                <!-- Category Card -->
-                <div data-goto="p6" class="relative group cursor-pointer overflow-hidden rounded-xl aspect-[16/9]">
-                    <img src="https://picsum.photos/seed/tech/400/225" alt="Tech" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 category-gradient flex flex-col justify-end p-3">
-                        <span class="text-sm font-bold">未來科技</span>
-                        <span class="text-[10px] text-slate-300">1.2k 篇文章</span>
-                    </div>
-                </div>
-                <div data-goto="p6" class="relative group cursor-pointer overflow-hidden rounded-xl aspect-[16/9]">
-                    <img src="https://picsum.photos/seed/design/400/225" alt="Design" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 category-gradient flex flex-col justify-end p-3">
-                        <span class="text-sm font-bold">藝術與設計</span>
-                        <span class="text-[10px] text-slate-300">850 篇文章</span>
-                    </div>
-                </div>
-                <div data-goto="p6" class="relative group cursor-pointer overflow-hidden rounded-xl aspect-[16/9]">
-                    <img src="https://picsum.photos/seed/travel/400/225" alt="Travel" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 category-gradient flex flex-col justify-end p-3">
-                        <span class="text-sm font-bold">旅遊冒險</span>
-                        <span class="text-[10px] text-slate-300">2.4k 篇文章</span>
-                    </div>
-                </div>
-                <div data-goto="p6" class="relative group cursor-pointer overflow-hidden rounded-xl aspect-[16/9]">
-                    <img src="https://picsum.photos/seed/health/400/225" alt="Health" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 category-gradient flex flex-col justify-end p-3">
-                        <span class="text-sm font-bold">身心健康</span>
-                        <span class="text-[10px] text-slate-300">920 篇文章</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- Background Accents -->
+        <div class="absolute top-1/2 left-0 w-full h-[1px] bg-white/5 z-0"></div>
+        <div class="absolute top-1/4 left-0 w-full h-[1px] bg-white/5 z-0"></div>
+        <div class="absolute top-3/4 left-0 w-full h-[1px] bg-white/5 z-0"></div>
 
-        <!-- Recommended Feed -->
-        <section class="mt-8">
-            <h2 class="text-lg font-bold mb-4">為你推薦</h2>
-            <div class="space-y-6">
-                <!-- Content Card 1 -->
-                <div data-goto="p6" class="flex flex-col gap-3 group cursor-pointer">
-                    <div class="relative overflow-hidden rounded-2xl aspect-video">
-                        <img src="https://picsum.photos/seed/p5_1/800/450" alt="Main" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute top-3 right-3 bg-white/20 backdrop-blur-md px-2 py-1 rounded-lg">
-                            <i class="fa-regular fa-bookmark"></i>
-                        </div>
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <div class="flex items-center gap-2 text-[10px] text-emerald-500 font-bold uppercase tracking-wider">
-                            <span>攝影技巧</span>
-                            <span class="w-1 h-1 rounded-full bg-slate-600"></span>
-                            <span class="text-slate-400">5 分鐘前</span>
-                        </div>
-                        <h3 class="text-base font-bold leading-snug group-hover:text-emerald-400 transition-colors">掌握自然光影：在黃金時段拍出絕美的人像攝影</h3>
-                        <div class="flex items-center gap-2 mt-1">
-                            <img src="https://picsum.photos/seed/user1/40/40" class="w-5 h-5 rounded-full border border-slate-700">
-                            <span class="text-xs text-slate-400">攝影師 Alexander</span>
-                        </div>
-                    </div>
-                </div>
+        <!-- Title Section -->
+        <div class="px-8 md:px-24 mb-12 z-10">
+            <h1 class="text-5xl md:text-8xl font-heading font-light tracking-tighter mb-4">PERSPECTIVES.</h1>
+            <p class="text-zinc-500 max-w-md text-sm uppercase tracking-widest leading-relaxed">
+                A visual dissection of form. high-contrast studies highlighting the interplay of shadow and structure.
+            </p>
+        </div>
 
-                <!-- Content Card 2 (Horizontal Layout) -->
-                <div data-goto="p6" class="flex gap-4 group cursor-pointer">
-                    <div class="w-24 h-24 shrink-0 overflow-hidden rounded-xl">
-                        <img src="https://picsum.photos/seed/p5_2/200/200" alt="Thumb" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+        <!-- Horizontal Scroll Container -->
+        <div class="hide-scrollbar flex overflow-x-auto snap-x snap-mandatory gap-8 px-8 md:px-24 pb-12 z-10 cursor-grab active:cursor-grabbing">
+            
+            <!-- Frame 01 -->
+            <div class="perspective-card flex-shrink-0 w-[85vw] md:w-[60vw] lg:w-[45vw] snap-center">
+                <div class="relative group">
+                    <div class="absolute -left-6 top-0 h-full flex flex-col justify-between py-4 text-[10px] text-zinc-600 font-mono tracking-tighter uppercase frame-number">
+                        <span>ISO 100 // F.2.8</span>
+                        <span>POS_FRONTAL_001</span>
+                        <span>REF_774.992</span>
                     </div>
-                    <div class="flex flex-col justify-between py-1">
-                        <div>
-                            <div class="text-[10px] text-orange-400 font-bold mb-1 uppercase">生活風格</div>
-                            <h3 class="text-sm font-bold line-clamp-2 group-hover:text-emerald-400 transition-colors">如何建立持久的早晨儀式？改善一整天的效率</h3>
-                        </div>
-                        <div class="flex items-center gap-3 text-xs text-slate-500">
-                            <span><i class="fa-regular fa-heart mr-1"></i> 1.2k</span>
-                            <span><i class="fa-regular fa-comment mr-1"></i> 48</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Content Card 3 (Horizontal Layout) -->
-                <div data-goto="p6" class="flex gap-4 group cursor-pointer">
-                    <div class="w-24 h-24 shrink-0 overflow-hidden rounded-xl">
-                        <img src="https://picsum.photos/seed/p5_3/200/200" alt="Thumb" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <div class="flex flex-col justify-between py-1">
-                        <div>
-                            <div class="text-[10px] text-blue-400 font-bold mb-1 uppercase">遠端工作</div>
-                            <h3 class="text-sm font-bold line-clamp-2 group-hover:text-emerald-400 transition-colors">2024年最適合數位游牧的 5 個亞洲城市</h3>
-                        </div>
-                        <div class="flex items-center gap-3 text-xs text-slate-500">
-                            <span><i class="fa-regular fa-heart mr-1"></i> 856</span>
-                            <span><i class="fa-regular fa-comment mr-1"></i> 32</span>
+                    <div class="overflow-hidden bg-zinc-900 aspect-[16/10] border border-white/10 group-hover:border-white/30 transition-colors relative">
+                        <div class="scanline"></div>
+                        <img src="https://picsum.photos/seed/p5-1/1200/800" alt="Perspective 1" class="w-full h-full object-cover grayscale contrast-125 brightness-75 transition-transform duration-700">
+                        <div class="absolute bottom-4 left-4">
+                            <h3 class="text-xl font-heading font-medium tracking-tight">THE SILHOUETTE</h3>
                         </div>
                     </div>
-                </div>
-
-                <!-- Content Card 4 -->
-                <div data-goto="p6" class="flex flex-col gap-3 group cursor-pointer">
-                    <div class="relative overflow-hidden rounded-2xl aspect-video">
-                        <img src="https://picsum.photos/seed/p5_4/800/450" alt="Main" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute top-3 right-3 bg-white/20 backdrop-blur-md px-2 py-1 rounded-lg">
-                            <i class="fa-regular fa-bookmark"></i>
-                        </div>
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <div class="flex items-center gap-2 text-[10px] text-purple-400 font-bold uppercase tracking-wider">
-                            <span>室內設計</span>
-                            <span class="w-1 h-1 rounded-full bg-slate-600"></span>
-                            <span class="text-slate-400">2 小時前</span>
-                        </div>
-                        <h3 class="text-base font-bold leading-snug group-hover:text-emerald-400 transition-colors">極簡主義不代表空洞：如何打造溫暖的簡約居家環境</h3>
-                        <div class="flex items-center gap-2 mt-1">
-                            <img src="https://picsum.photos/seed/user2/40/40" class="w-5 h-5 rounded-full border border-slate-700">
-                            <span class="text-xs text-slate-400">設計大師 Elena</span>
-                        </div>
+                    <div class="mt-4 flex justify-between items-end border-t border-zinc-800 pt-4">
+                        <span class="text-[10px] font-mono text-zinc-500 uppercase">Aspect Ratio 1.6:1</span>
+                        <span class="text-[10px] font-mono text-zinc-500">01 / 04</span>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Load More Button -->
-        <button class="w-full mt-8 py-4 bg-slate-800 rounded-xl text-sm font-semibold hover:bg-slate-700 transition-colors">
-            加載更多精彩內容
-        </button>
-    </main>
-
-    <!-- Bottom Navigation Bar -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-slate-900/90 backdrop-blur-xl border-t border-slate-800 px-6 py-3 z-50">
-        <div class="flex justify-between items-center max-w-md mx-auto">
-            <button data-goto="p4" class="flex flex-col items-center gap-1 text-slate-500">
-                <i class="fa-solid fa-house text-xl"></i>
-                <span class="text-[10px]">首頁</span>
-            </button>
-            <button data-goto="p5" class="flex flex-col items-center gap-1 text-emerald-500">
-                <i class="fa-solid fa-compass text-xl"></i>
-                <span class="text-[10px]">探索</span>
-            </button>
-            <div class="relative -top-6">
-                <button class="bg-emerald-500 w-12 h-12 rounded-full shadow-lg shadow-emerald-500/20 flex items-center justify-center text-white text-xl">
-                    <i class="fa-solid fa-plus"></i>
-                </button>
+            <!-- Frame 02 -->
+            <div class="perspective-card flex-shrink-0 w-[85vw] md:w-[60vw] lg:w-[45vw] snap-center">
+                <div class="relative group">
+                    <div class="absolute -left-6 top-0 h-full flex flex-col justify-between py-4 text-[10px] text-zinc-600 font-mono tracking-tighter uppercase frame-number">
+                        <span>ISO 100 // F.8.0</span>
+                        <span>POS_OBLIQUE_002</span>
+                        <span>REF_774.993</span>
+                    </div>
+                    <div class="overflow-hidden bg-zinc-900 aspect-[16/10] border border-white/10 group-hover:border-white/30 transition-colors relative">
+                        <div class="scanline" style="animation-delay: 1s;"></div>
+                        <img src="https://picsum.photos/seed/p5-2/1200/800" alt="Perspective 2" class="w-full h-full object-cover grayscale contrast-150 brightness-50 transition-transform duration-700">
+                        <div class="absolute bottom-4 left-4">
+                            <h3 class="text-xl font-heading font-medium tracking-tight">ANGULAR MASS</h3>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-between items-end border-t border-zinc-800 pt-4">
+                        <span class="text-[10px] font-mono text-zinc-500 uppercase">Macro Detail Focal</span>
+                        <span class="text-[10px] font-mono text-zinc-500">02 / 04</span>
+                    </div>
+                </div>
             </div>
-            <button data-goto="p7" class="flex flex-col items-center gap-1 text-slate-500">
-                <i class="fa-solid fa-user text-xl"></i>
-                <span class="text-[10px]">我的</span>
-            </button>
-            <button data-goto="p8" class="flex flex-col items-center gap-1 text-slate-500">
-                <i class="fa-solid fa-gear text-xl"></i>
-                <span class="text-[10px]">設定</span>
+
+            <!-- Frame 03 -->
+            <div class="perspective-card flex-shrink-0 w-[85vw] md:w-[60vw] lg:w-[45vw] snap-center">
+                <div class="relative group">
+                    <div class="absolute -left-6 top-0 h-full flex flex-col justify-between py-4 text-[10px] text-zinc-600 font-mono tracking-tighter uppercase frame-number">
+                        <span>ISO 400 // F.1.4</span>
+                        <span>POS_DETAIL_003</span>
+                        <span>REF_774.994</span>
+                    </div>
+                    <div class="overflow-hidden bg-zinc-900 aspect-[16/10] border border-white/10 group-hover:border-white/30 transition-colors relative">
+                        <div class="scanline" style="animation-delay: 2.5s;"></div>
+                        <img src="https://picsum.photos/seed/p5-3/1200/800" alt="Perspective 3" class="w-full h-full object-cover grayscale contrast-125 transition-transform duration-700">
+                        <div class="absolute bottom-4 left-4 text-black bg-white px-2 py-0.5">
+                            <h3 class="text-xl font-heading font-medium tracking-tight">MATERIAL GRAIN</h3>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-between items-end border-t border-zinc-800 pt-4">
+                        <span class="text-[10px] font-mono text-zinc-500 uppercase">Low Light Synthesis</span>
+                        <span class="text-[10px] font-mono text-zinc-500">03 / 04</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Frame 04 -->
+            <div class="perspective-card flex-shrink-0 w-[85vw] md:w-[60vw] lg:w-[45vw] snap-center">
+                <div class="relative group">
+                    <div class="absolute -left-6 top-0 h-full flex flex-col justify-between py-4 text-[10px] text-zinc-600 font-mono tracking-tighter uppercase frame-number">
+                        <span>ISO 100 // F.11.0</span>
+                        <span>POS_DORSAL_004</span>
+                        <span>REF_774.995</span>
+                    </div>
+                    <div class="overflow-hidden bg-zinc-900 aspect-[16/10] border border-white/10 group-hover:border-white/30 transition-colors relative">
+                        <div class="scanline" style="animation-delay: 0.5s;"></div>
+                        <img src="https://picsum.photos/seed/p5-4/1200/800" alt="Perspective 4" class="w-full h-full object-cover grayscale contrast-200 brightness-90 transition-transform duration-700">
+                        <div class="absolute bottom-4 left-4">
+                            <h3 class="text-xl font-heading font-medium tracking-tight">VOID & VOLUME</h3>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-between items-end border-t border-zinc-800 pt-4">
+                        <span class="text-[10px] font-mono text-zinc-500 uppercase">Dorsal Alignment</span>
+                        <span class="text-[10px] font-mono text-zinc-500">04 / 04</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="px-8 md:px-24 flex items-center gap-4 z-10">
+            <div class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Scroll to Explore</div>
+            <div class="flex-1 h-[1px] bg-zinc-800 relative overflow-hidden">
+                <div class="absolute inset-0 bg-white/20 w-1/4 animate-[scrollLine_4s_ease-in-out_infinite]"></div>
+            </div>
+            <button data-goto="p2" class="text-[10px] font-mono text-zinc-400 hover:text-white uppercase tracking-widest transition-colors">
+                Return to Core <i class="fa-solid fa-chevron-right ml-2"></i>
             </button>
         </div>
-    </nav>
+    </main>
+
+    <!-- UI Overlay Footer -->
+    <footer class="fixed bottom-0 left-0 w-full p-6 flex justify-between items-end pointer-events-none">
+        <div class="pointer-events-auto">
+            <div class="text-[10px] font-mono text-zinc-600 mb-2">LAT: 51.5074° N / LONG: 0.1278° W</div>
+            <div class="flex gap-4">
+                <div class="w-1 h-1 bg-white rounded-full"></div>
+                <div class="w-1 h-1 bg-zinc-800 rounded-full"></div>
+                <div class="w-1 h-1 bg-zinc-800 rounded-full"></div>
+                <div class="w-1 h-1 bg-zinc-800 rounded-full"></div>
+            </div>
+        </div>
+        <div class="pointer-events-auto flex flex-col items-end">
+            <div class="text-[40px] font-heading font-light tracking-tighter leading-none mb-1">05</div>
+            <div class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Module Gallery</div>
+        </div>
+    </footer>
+
+    <style>
+        @keyframes scrollLine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(400%); }
+        }
+    </style>
 
     <script>
-        // Simple Interaction logic for data-goto
+        // Navigation Logic
         document.querySelectorAll('[data-goto]').forEach(element => {
             element.addEventListener('click', () => {
                 const targetId = element.getAttribute('data-goto');
-                console.log(`Navigating to page: ${targetId}`);
-                // In a real app, this would handle routing. For this prototype, 
-                // we'll just log it or simulate a transition.
-                const overlay = document.createElement('div');
-                overlay.className = 'fixed inset-0 bg-slate-950 z-[100] transition-opacity duration-300 opacity-0';
-                document.body.appendChild(overlay);
-                setTimeout(() => overlay.style.opacity = '1', 10);
+                // In a real application, this would use a router. 
+                // For this prototype, we'll simulate a transition or log it.
+                console.log(`Navigating to: ${targetId}`);
+                
+                // Visual feedback before "navigation"
+                document.body.style.opacity = '0';
+                document.body.style.transition = 'opacity 0.5s ease';
+                
                 setTimeout(() => {
-                    // This is where you'd typically swap HTML or change window.location
-                    // alert('導航至: ' + targetId);
-                    document.body.removeChild(overlay);
-                }, 400);
+                    // This is where actual page loading/visibility logic would go
+                    // For the prompt's purpose, we'll just show what ID it would hit.
+                    alert(`In a multi-page app, this would load Page ID: ${targetId}`);
+                    document.body.style.opacity = '1';
+                }, 500);
             });
         });
 
-        // Search bar focus effect
-        const searchInput = document.querySelector('input[type="text"]');
-        searchInput.addEventListener('focus', () => {
-            searchInput.parentElement.classList.add('scale-[1.02]');
-            searchInput.parentElement.style.transition = 'all 0.3s ease';
+        // Horizontal Scroll Drag Interaction
+        const slider = document.querySelector('.hide-scrollbar');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
         });
-        searchInput.addEventListener('blur', () => {
-            searchInput.parentElement.classList.remove('scale-[1.02]');
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+        });
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+        });
+        slider.addEventListener('mousemove', (e) => {
+            if(!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2;
+            slider.scrollLeft = scrollLeft - walk;
         });
     </script>
 
