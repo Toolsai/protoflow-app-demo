@@ -1,0 +1,298 @@
+<html lang="en"><head></head><body class="min-h-screen overflow-x-hidden">```html
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI Setting - Precision Interface</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #e5e5e5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        .glass-card {
+            background: rgba(23, 23, 23, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .accent-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.1);
+            height: 4px;
+            border-radius: 2px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #3b82f6;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #3b82f6;
+        }
+        .toggle-checkbox:checked + .toggle-label .toggle-dot {
+            transform: translateX(100%);
+        }
+    </style>
+
+
+
+    <!-- Top Navigation Bar -->
+    <nav class="sticky top-0 z-50 glass-card border-b border-white/5 py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <button data-goto="p1" class="flex items-center gap-2 text-white/60 hover:text-white transition-all group">
+                <i class="fa-solid fa-arrow-left text-sm group-hover:-translate-x-1 transition-transform"></i>
+                <span class="text-sm font-medium uppercase tracking-widest">Back to Manifest</span>
+            </button>
+            <div class="h-4 w-[1px] bg-white/10 mx-2"></div>
+            <h1 class="text-lg font-bold tracking-tight">UI Configuration</h1>
+        </div>
+        <div class="flex items-center gap-3">
+            <div class="text-[10px] mono text-white/40 uppercase tracking-widest bg-white/5 px-2 py-1 rounded">System V2.4.0</div>
+            <button data-goto="p2" class="p-2 hover:bg-white/10 rounded-full transition-colors">
+                <i class="fa-solid fa-house-chimney text-white/70"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto py-12 px-6">
+        
+        <!-- Header Section -->
+        <header class="mb-12">
+            <h2 class="text-4xl font-light mb-2">Interface <span class="font-bold text-blue-500">Environment</span></h2>
+            <p class="text-white/50 max-w-xl">Customize the visual language, spatial density, and interaction dynamics of your manifestation core.</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Left Sidebar Navigation for Settings -->
+            <div class="space-y-2">
+                <button class="w-full text-left px-4 py-3 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 flex items-center gap-3 ring-2 ring-blue-500 ring-offset-2" id="action-2-0093" data-goto="p4">
+                    <i class="fa-solid fa-palette w-5"></i>
+                    <span class="font-medium">Visual Style</span>
+                </button>
+                <button class="w-full text-left px-4 py-3 rounded-lg hover:bg-white/5 text-white/60 flex items-center gap-3 transition-colors ring-2 ring-blue-500 ring-offset-2" id="action-3-5597" data-goto="p3">
+                    <i class="fa-solid fa-layer-group w-5"></i>
+                    <span class="font-medium">Layout Density</span>
+                </button>
+                <button class="w-full text-left px-4 py-3 rounded-lg hover:bg-white/5 text-white/60 flex items-center gap-3 transition-colors ring-2 ring-blue-500 ring-offset-2" id="action-4-9066" data-goto="p2">
+                    <i class="fa-solid fa-bolt w-5"></i>
+                    <span class="font-medium">Motion &amp; FX</span>
+                </button>
+                <button class="w-full text-left px-4 py-3 rounded-lg hover:bg-white/5 text-white/60 flex items-center gap-3 transition-colors ring-2 ring-blue-500 ring-offset-2" id="action-5-2386" data-goto="p4">
+                    <i class="fa-solid fa-code w-5"></i>
+                    <span class="font-medium">Advanced</span>
+                </button>
+                
+                <div class="mt-8 pt-8 border-t border-white/10">
+                    <div class="glass-card p-4 rounded-xl border-dashed border-white/20">
+                        <p class="text-[11px] uppercase tracking-widest text-white/40 mb-3">Live Preview</p>
+                        <img src="https://picsum.photos/seed/p5277/300/200" alt="Preview" class="rounded-lg mb-3 opacity-80 grayscale hover:grayscale-0 transition-all duration-700">
+                        <p class="text-xs text-white/60 leading-relaxed italic">Changes are staged in real-time to the current workspace.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Settings Content -->
+            <div class="md:col-span-2 space-y-10">
+                
+                <!-- Theme Selection -->
+                <section>
+                    <label class="block text-sm font-semibold text-white/80 uppercase tracking-widest mb-6">Master Theme</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="glass-card p-1 rounded-2xl cursor-pointer border-2 border-blue-500 ring-4 ring-blue-500/10 transition-all">
+                            <div class="bg-[#0a0a0a] rounded-xl p-4 h-32 flex flex-col justify-between">
+                                <div class="flex gap-2">
+                                    <div class="w-3 h-3 rounded-full bg-white/20"></div>
+                                    <div class="w-8 h-3 rounded-full bg-white/10"></div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm font-medium">Obsidian Dark</span>
+                                    <i class="fa-solid fa-circle-check text-blue-500"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="glass-card p-1 rounded-2xl cursor-pointer border-2 border-transparent hover:border-white/20 transition-all">
+                            <div class="bg-white rounded-xl p-4 h-32 flex flex-col justify-between">
+                                <div class="flex gap-2">
+                                    <div class="w-3 h-3 rounded-full bg-black/20"></div>
+                                    <div class="w-8 h-3 rounded-full bg-black/10"></div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm font-medium text-black">Alabaster Light</span>
+                                    <div class="w-4 h-4 rounded-full border border-black/10"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Accent Colors -->
+                <section>
+                    <label class="block text-sm font-semibold text-white/80 uppercase tracking-widest mb-4">Interface Accent</label>
+                    <div class="flex flex-wrap gap-4">
+                        <button class="w-10 h-10 rounded-full bg-blue-500 ring-4 ring-blue-500/20 relative">
+                            <i class="fa-solid fa-check text-white text-xs absolute inset-0 flex items-center justify-center"></i>
+                        </button>
+                        <button class="w-10 h-10 rounded-full bg-emerald-500 hover:ring-4 hover:ring-emerald-500/20 transition-all"></button>
+                        <button class="w-10 h-10 rounded-full bg-amber-500 hover:ring-4 hover:ring-amber-500/20 transition-all"></button>
+                        <button class="w-10 h-10 rounded-full bg-rose-500 hover:ring-4 hover:ring-rose-500/20 transition-all"></button>
+                        <button class="w-10 h-10 rounded-full bg-indigo-500 hover:ring-4 hover:ring-indigo-500/20 transition-all"></button>
+                        <button class="w-10 h-10 rounded-full bg-zinc-600 hover:ring-4 hover:ring-zinc-600/20 transition-all"></button>
+                        <button class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10">
+                            <i class="fa-solid fa-plus text-xs"></i>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Typography & Scaling -->
+                <section class="space-y-6">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <label class="text-sm font-semibold text-white/80 uppercase tracking-widest">Interface Scaling</label>
+                            <span class="mono text-xs text-blue-400">100% (Default)</span>
+                        </div>
+                        <input type="range" min="80" max="120" value="100" class="w-full accent-blue-500">
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-4 pt-4">
+                        <div class="flex items-center justify-between p-4 glass-card rounded-xl">
+                            <div>
+                                <h4 class="font-medium">High Contrast Text</h4>
+                                <p class="text-xs text-white/40">Enhance legibility for primary headers</p>
+                            </div>
+                            <div class="relative inline-block w-12 h-6 transition duration-200 ease-in-out">
+                                <input type="checkbox" id="toggle-contrast" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-transparent appearance-none cursor-pointer z-10 transition-transform duration-200">
+                                <label for="toggle-contrast" class="toggle-label block overflow-hidden h-6 rounded-full bg-white/10 cursor-pointer">
+                                    <span class="toggle-dot block w-6 h-6 rounded-full bg-white transition-transform duration-200"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 glass-card rounded-xl">
+                            <div>
+                                <h4 class="font-medium">Glassmorphism Blur</h4>
+                                <p class="text-xs text-white/40">Apply backdrop filter to UI panels</p>
+                            </div>
+                            <div class="relative inline-block w-12 h-6 transition duration-200 ease-in-out">
+                                <input type="checkbox" id="toggle-blur" checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-transparent appearance-none cursor-pointer z-10 transition-transform duration-200">
+                                <label for="toggle-blur" class="toggle-label block overflow-hidden h-6 rounded-full bg-white/10 cursor-pointer">
+                                    <span class="toggle-dot block w-6 h-6 rounded-full bg-white transition-transform duration-200" style="transform: translateX(100%);"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Interaction Settings -->
+                <section class="p-6 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-2xl border border-white/5">
+                    <h3 class="font-bold mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-sparkles text-blue-400"></i>
+                        Interaction Dynamics
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                            <span class="text-xs mono w-20 text-white/40">DAMPING</span>
+                            <div class="flex-grow h-1.5 bg-white/5 rounded-full overflow-hidden">
+                                <div class="w-[70%] h-full accent-gradient"></div>
+                            </div>
+                            <span class="text-xs mono w-8">0.7</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-xs mono w-20 text-white/40">FRICTION</span>
+                            <div class="flex-grow h-1.5 bg-white/5 rounded-full overflow-hidden">
+                                <div class="w-[45%] h-full accent-gradient"></div>
+                            </div>
+                            <span class="text-xs mono w-8">0.4</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex gap-3">
+                        <button class="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-xs font-bold transition-all ring-2 ring-blue-500 ring-offset-2" id="action-13-5219" data-goto="p3">RESET TO CORE</button>
+                        <button class="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-xs font-bold transition-all shadow-lg shadow-blue-900/20">SAVE PROFILE</button>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+
+        <!-- Footer Info -->
+        <footer class="mt-20 border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex gap-8 text-[11px] mono text-white/30 uppercase tracking-widest">
+                <button data-goto="p4" class="hover:text-white transition-colors">Tech Specs</button>
+                <button data-goto="p3" class="hover:text-white transition-colors">Material Science</button>
+                <button data-goto="p5277" class="text-blue-500">UI Settings</button>
+            </div>
+            <div class="flex items-center gap-2 text-white/40 text-xs">
+                <span>Designed for</span>
+                <img src="https://picsum.photos/seed/p5277/20/20" class="rounded-full grayscale" alt="Client">
+                <span class="font-bold text-white/60">THE MANIFEST</span>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navigation handling
+            document.querySelectorAll('[data-goto]').forEach(element => {
+                element.addEventListener('click', () => {
+                    const targetId = element.getAttribute('data-goto');
+                    console.log(`Navigating to: ${targetId}`);
+                    // In a real prototype, this would trigger the page swap logic
+                    // For this standalone, we'll just log it.
+                });
+            });
+
+            // Toggle logic simulation
+            document.querySelectorAll('.toggle-checkbox').forEach(toggle => {
+                toggle.addEventListener('change', (e) => {
+                    const label = e.target.nextElementSibling;
+                    const dot = label.querySelector('.toggle-dot');
+                    if(e.target.checked) {
+                        label.classList.add('bg-blue-600');
+                        dot.style.transform = 'translateX(100%)';
+                    } else {
+                        label.classList.remove('bg-blue-600');
+                        dot.style.transform = 'translateX(0)';
+                    }
+                });
+            });
+        });
+    </script>
+
+
+
+```
+<script>
+  // Pro Prototype - Static Navigation Shim
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.addEventListener('click', (e) => {
+      const target = e.target.closest('[data-goto]');
+      if (target) {
+        e.preventDefault();
+        const pageId = target.getAttribute('data-goto');
+        // Navigate to the corresponding HTML file
+        window.location.href = pageId + '.html';
+      }
+    });
+  });
+</script>
+</body></html>
